@@ -1,0 +1,22 @@
+<button class="btn btn-default" id="toggle-sidebar" type="button"
+	(click)="eventCalled()">&#9776;</button>
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+	<ul class="list-group">
+		<a [routerLink]="['home']"
+			[routerLinkActive]="['router-link-active']" class="list-group-item">
+			<i class="fa fa-dashboard"></i> &nbsp;Home
+		</a>
+		<a [routerLink]="['room-list']"
+			[routerLinkActive]="['router-link-active']" class="list-group-item">
+			<i class="fa fa-key"></i> &nbsp;Room
+		</a>
+		<a [routerLink]="['student-list']"
+			[routerLinkActive]="['router-link-active']" class="list-group-item">
+			<i class="fa fa-user"></i> &nbsp;Student
+		</a>
+		<a [routerLink]="['absences']"
+			[routerLinkActive]="['router-link-active']" class="list-group-item">
+			<i class="fa fa-ticket"></i> &nbsp;Absences
+		</a>
+	</ul>
+</nav>

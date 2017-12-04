@@ -1,0 +1,18 @@
+.btn-success{
+    color:black;
+}
+.btn-success:hover{
+    color:white;
+}
+.btn-danger{
+    color:black;
+}
+.btn-danger:hover{
+    color:white;
+}
+
+.modal-dialog
+{
+    width:600px !important;
+    margin: 60px 0 0 400px !important;
+}

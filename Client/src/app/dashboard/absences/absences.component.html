@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-xl-12">
+        <div class="row">
+                <div class="row">
+                    <div class="col-xs-11">
+                        <h2 class="page-header">Absencess</h2>
+                    </div>
+                    <div class="col-md-1">
+                        <a [routerLink]="['create']"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <ol class="breadcrumb">
+                <li><i class="fa fa-dashboard"></i> <a
+                    href="Javascript:void(0);" routerLink="/dashboard/home">Dashboard</a>
+                </li>
+                <li class="active"><i class="fa fa-table"></i> Absencess</li>
+            </ol>
+            <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Start date</th>
+                                <th>Num of absences</th>
+                                <th>Student Id</th>
+                                <th style="text-align:center">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of data">
+                                <td>{{row.id}}</td>
+                                <td>{{row.startdate}}</td>
+                                <td>{{row.numofabsences}}</td>
+                                <td>{{row.studentId}}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/absences/view', row.id]" ><i class="fa-eye fa"></i></a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a class="card btn btn-social-icon btn-danger btn-google" (click)="deleteAbsences(row.id)" ><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div class="margin-top-10">
+                    <pagination class="pull-right" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+                </div>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+	<div class="row">
+        <div class="col-xl-12">
+            <h1 class="page-header">Create Room</h1>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-dashboard"></i> <a
+                    href="Javascript:void(0)" routerLink="/dashboard/home">
+                        Dashboard</a></li>
+                <li class="active"><i class="fa fa-fw fa-bar-chart-o"></i> Create Room</li>
+            </ol>
+        </div>
+    </div>
+    
+        <div class="row" style="background:white; padding-top:10px">
+            <form [formGroup]="createRoom" (ngSubmit)="onSubmit()" novalidate class="form-validation">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Room Id<span class="required" >&nbsp;<label class="text-danger">*</label></span>
+                    </label>
+                    <div style="padding-right:50px;">
+                        <input  type="text" class="form-control" placeholder="RoomId" [formControl]="roomId">
+                    </div>
+                </div>
+                <span class="glyphicon glyphicon-enveloppe form-control-feedback"></span>
+                <div *ngIf="formErrors.roomId && formErrors.roomId?.length > 0" class="alert alert-danger">
+                    <div *ngFor="let item of formErrors.roomId">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Capacity<span class="required" >&nbsp;<label class="text-danger">*</label></span>
+                    </label>
+                    <div style="padding-right:50px;">
+                        <input  type="number" class="form-control" placeholder="Capacity" [formControl]="capacity">
+                    </div>
+                </div>
+                <span class="glyphicon glyphicon-enveloppe form-control-feedback"></span>
+                <div *ngIf="formErrors.capacity && formErrors.capacity?.length > 0" class="alert alert-danger">
+                    <div *ngFor="let item of formErrors.capacity">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    
+        <div class="row" style="background:white; padding-top:10px">
+            <div class="col-md-3" >
+                <div class="form-group">
+                    <label>Building<span class="required" >&nbsp;<label class="text-danger">*</label></span></label>
+                    <ng-select *ngIf="showBuilding" class="ng-select" #SelectBuilding [allowClear]="true" [items]="building" [disabled]="building_disabled" (selected)="selectedBuilding($event)" placeholder="building" [active]="[building_value]">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div class="form-group">
+                    <label>Floor<span class="required" >&nbsp;<label class="text-danger">*</label></span></label>
+                    <ng-select *ngIf="showFloor" class="ng-select" #SelectFloor [allowClear]="true" [items]="floor" [disabled]="floor_disabled" (selected)="selectedFloor($event)" placeholder="Floor" [active]="[floor_value]">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+            <div style="padding-left:700px;"class="row">
+                <div class="col-md-6">
+                    <a class="card btn btn-social-icon btn-success" (click)="onSubmit()">Submit</a>
+                </div>
+                <!--div *ngIf="view_flg==true" class="col-md-6">
+                    <a class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/room-list/create', id_param]">Edit</a>
+                </div-->
+                <div class="col-md-6">
+                    <a class="card btn btn-social-icon btn-danger"  [routerLink]="['/dashboard/room-list']"><i class="fa-long-arrow-left fa"></i></a>
+                </div>
+            </div>
+        
+</div>

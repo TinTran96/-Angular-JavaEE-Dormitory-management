@@ -1,0 +1,177 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-xl-12">
+        <div class="row">
+                <div class="row">
+                    <div class="col-xs-11">
+                        <h2 class="page-header">Students</h2>
+                    </div>
+                    <div class="col-md-1">
+                        <a [routerLink]="['create']"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <ol class="breadcrumb">
+                <li><i class="fa fa-dashboard"></i> <a
+                    href="Javascript:void(0);" routerLink="/dashboard/home">Dashboard</a>
+                </li>
+                <li class="active"><i class="fa fa-table"></i> Students</li>
+            </ol>
+            <div class="search">
+                    <div class="row">
+                        <div class="col-xl-2 col-md-2">
+                            <div class="form-group">
+                                <input (keyup)="onSearch()" type="number" class="form-control " placeholder="ID" [(ngModel)]="id_search">
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-3">
+                            <div class="form-group">
+                                <input (keyup)="onSearch()" type="text" class="form-control " placeholder="Name" [(ngModel)]="name_search">
+                            </div>
+                        </div>
+                        <div class="col-xl-1 col-md-1">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" (click)="onClear()">Clear</button>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Nation</th>
+                                <th>Place of birth</th>
+                                <th>Religion</th>
+                                <th>Course</th>
+                                <th style="text-align:center">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of data">
+                                <td>{{row.id}}</td>
+                                <td>{{row.name}}</td>
+                                <td>{{row.nation}}</td>
+                                <td>{{row.pob}}</td>
+                                <td>{{row.religion}}</td>
+                                <td>{{row.course}}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a class="card btn btn-social-icon btn-success" (click)="showModal(row)" ><i class="fa-eye fa"></i></a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a class="card btn btn-social-icon btn-danger btn-google" (click)="deleteStudent(row.id)" ><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div class="margin-top-10">
+                    <pagination class="pull-right" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+                </div>
+        </div>
+        
+    </div>
+    <div class="modal fade" bsModal #StudentInforModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title pull-left">Information</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="this.studentInforModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6">
+                            <div class="content table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr >
+                                            <td><b>Student Id:</b></td><td>{{this.studentInfor.id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Name:</b></td><td>{{this.studentInfor.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>DOB:</b></td><td>{{this.studentInfor.dob}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Address:</b></td><td>{{this.studentInfor.address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Phone:</b></td><td>{{this.studentInfor.phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Nation:</b></td><td>{{this.studentInfor.nation}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Religion:</b></td><td>{{this.studentInfor.religion}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="content table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="30%"><b>Club:</b></td><td style="text-align:center">{{this.studentInfor.club_name}}</td>
+                                        </tr>
+                                        <!--tr>
+                                            <td><b>Faculty:</b></td><td style="text-align:center">{{this.studentInfor.faculty_name}}</td>
+                                        </tr-->
+                                        <tr>
+                                            <td><b>Nation:</b></td><td style="text-align:center">{{this.studentInfor.nation}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Course:</b></td><td style="text-align:center">{{this.studentInfor.course}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Class:</b></td><td style="text-align:center">{{this.studentInfor.classId}}</td>
+                                        </tr>
+                                        <!--tr>
+                                            <td><b>Priorities:</b></td><td style="text-align:center">priority</td>
+                                        </tr-->
+                                        <tr>
+                                            <td><b>Room Id:</b></td ><td style="text-align:center">
+                                                <p *ngIf="studentInfor.roomId != null">{{this.studentInfor.roomId}}</p>
+                                                <div style="padding:0 70px 0 70px">
+                                                <a *ngIf="studentInfor.roomId == null" class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/student-list/create', this.studentInfor.id]"><i class="fa-key fa"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row" style="padding-left:150px;padding-top:60px">
+                                <div class="col-md-6">
+                                    <a class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/student-list/create', this.studentInfor.id]" ><i class="fa-pencil fa"></i></a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a class="card btn btn-social-icon btn-danger" (click)="this.studentInforModal.hide()" ><i class="fa-arrow-left fa"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

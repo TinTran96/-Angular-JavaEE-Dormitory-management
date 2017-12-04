@@ -1,0 +1,35 @@
+<div class="login-page">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			<img src="assets/img/SB-admin.png" width="150px;" class="user-avatar" />
+			<h1>Dormitory Management</h1>
+			<form [formGroup]="signupForm" (ngSubmit)="submitSignUp()" novalidate class="form-validation">
+				<div class="form-content">
+					<div class="form-group">
+						<input type="text" class="form-control input-underline input-lg"
+							id="username" [formControl]="username" placeholder="Full Name">
+					</div>
+
+					<div class="form-group">
+						<input type="text" pattern="^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4};*[\W]*)+$" class="form-control input-underline input-lg"
+							id="email" [formControl]="email" placeholder="Email">
+					</div>
+
+					<div class="form-group">
+						<input type="password"
+							class="form-control input-underline input-lg" id="password"
+							[formControl]="password" placeholder="Password">
+					</div>
+					<div class="form-group">
+						<input type="password"
+							class="form-control input-underline input-lg" id="repassword"
+							[formControl]="repassword" placeholder="Repeat Password">
+					</div>
+				</div>
+				<a role="button" class="btn rounded-btn"
+					(click)="submitSignUp()"> Register </a>&nbsp; <a type="submit"
+					class="btn rounded-btn" routerLink="/"> Log in </a>
+			</form>
+		</div>
+	</div>
+</div>

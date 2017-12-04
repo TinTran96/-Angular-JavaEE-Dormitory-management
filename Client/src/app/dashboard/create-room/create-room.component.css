@@ -1,0 +1,12 @@
+.btn-success{
+    color:black;
+}
+.btn-success:hover{
+    color:white;
+}
+.btn-danger{
+    color:black;
+}
+.btn-danger:hover{
+    color:white;
+}

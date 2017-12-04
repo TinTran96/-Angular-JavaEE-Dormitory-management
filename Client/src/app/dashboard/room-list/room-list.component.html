@@ -1,0 +1,188 @@
+<div class="container-fluid">
+<!-- Page Heading -->
+	<div class="row">
+		<div class="col-xl-12">
+		<div class="row">
+                    <div class="col-xs-11">
+                    <h2 class="page-header">Rooms</h2>
+                        </div>
+
+                    <div class="col-md-1">
+                        <a [routerLink]="['create']"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+			
+			<ol class="breadcrumb">
+				<li><i class="fa fa-dashboard"></i> <a
+					href="Javascript:void(0);" routerLink="/dashboard/home">Dashboard</a>
+				</li>
+				<li class="active"><i class="fa fa-table"></i> Rooms</li>
+			</ol>
+		</div>
+	</div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              
+              <div >
+                <div *ngFor="let row of rooms" class="col-md-4 col-sm-6 col-xs-12 animation-fadein">
+                  <div class="box-body no-padding">
+                    <div class=" box-body-height">
+                        <div class="panel animation-fadein">
+                            <div class="info-box">
+                                <span class="info-box-icon"><img alt="" class=" img-responsive pull-left" src="assets/img/room.ico" style="height: 89px;"></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{{row.id}} </span>
+                                    <div class="info-box-button">
+                                        <div class="row">
+                                            <div class="col-md-3" style="padding-left:100px">
+                                                <button class="card btn btn-social-icon  btn-info" (click)="showModal(row)"><i class=" fa-pencil fa "></i></button>
+                                             </div>
+                                            <div class="col-md-2">
+                                                <button class="card btn btn-social-icon btn-danger" (click)="deleteRoom(row.id)"><i class="fa fa-trash "></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+  <div class="modal fade" bsModal #RoomInforModal="bs-modal" [config]="{backdrop: 'static'}"
+  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title pull-left">Information</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="this.roomInforModal.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-xl-3 col-md-3">
+                          <div class="content table-responsive">
+                              <table class="table table-striped">
+                                  <tbody>
+                                        <tr >
+                                            <td><b>Room Id:</b></td><td>{{room_infor.id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Capacity:</b></td><td>{{room_infor.capacity}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Num of students</b></td><td>{{room_infor.size}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/room-list/create', room_infor.id]">Edit</a></td>
+                                        </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <div class="col-xl-9 col-md-9">
+                          <div class="content table-responsive">
+                              <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Id</th>
+                                            <th>Name</th>
+                                            <th>Nation</th>
+                                            <th>Course</th>
+                                            <th class="actionCol">Action</th>
+                                        </tr>
+                                    </thead>
+                                  <tbody>
+                                        <tr *ngFor="let row of students_display">
+                                            <td>{{row.id}}</td>
+                                            <td>{{row.name}}</td>
+                                            <td>{{row.nation}}</td>
+                                            <td>{{row.course}}</td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-md-6">
+                                                        <a class="card btn btn-social-icon btn-success" [routerLink]="['/dashboard/student-list/create', row.id]" ><i class="fa-pencil fa"></i></a>
+                                                    </div>
+                                                    <div class="col-xl-6 col-md-6">
+                                                        <a (click)="onOut(row)" class="card btn btn-social-icon btn-danger btn-google" ><i class="fa fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                  </tbody>
+                              </table>
+                              <button  [disabled]="room_infor.size == room_infor.capacity" class="card btn btn-social-icon btn-success" (click)="showStudentModal()">Add students</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" bsModal #ChangeRoomModal="bs-modal" [config]="{backdrop: 'static'}"
+  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title pull-left">Student List</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="this.changeRoomModal.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+                <div class="content table-responsive table-full-width">
+                    <p *ngIf="full_flag == true" style="color:red">Out of space</p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Nation</th>
+                                <th>Place of birth</th>
+                                <th>Religion</th>
+                                <th>Course</th>
+                                <th>Room</th>
+                                <th style="text-align:center">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of data">
+                                <td>{{row.id}}</td>
+                                <td>{{row.name}}</td>
+                                <td>{{row.nation}}</td>
+                                <td>{{row.pob}}</td>
+                                <td>{{row.religion}}</td>
+                                <td>{{row.course}}</td>
+                                <td>
+                                    <b *ngIf="row.roomId!=null && row.roomId!=''">{{row.roomId}}</b>
+                                    <b *ngIf="row.roomId==null || row.roomId==''">None</b>
+                                </td>
+                                <td>
+                                    <input type="checkbox" [checked]="row.checked" (change)="changeStudent(row)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="margin-top-10">
+                        <pagination class="pull-right" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+                        <button class="pull-left" class="card btn btn-social-icon btn-success" [disabled]="full_flag" (click)="submitChange()" >Submit <i class="fa-plus fa"></i></button>
+                    </div>
+                    
+                </div>
+                
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
